@@ -1,0 +1,14 @@
+artifact_uri: file:///E:/renewable-energy-optimization-ai/mlruns/124360478167527332/7ca7df6afc124ecb8d3f16aad7ef6a7f/artifacts
+end_time: 1752838736756
+entry_point_name: ''
+experiment_id: '124360478167527332'
+lifecycle_stage: active
+run_id: 7ca7df6afc124ecb8d3f16aad7ef6a7f
+run_name: xgboost-tuned
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1752838729583
+status: 3
+tags: []
+user_id: sabar

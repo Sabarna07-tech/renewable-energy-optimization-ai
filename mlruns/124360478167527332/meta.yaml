@@ -1,0 +1,6 @@
+artifact_location: file:///E:/renewable-energy-optimization-ai/mlruns/124360478167527332
+creation_time: 1752838728648
+experiment_id: '124360478167527332'
+last_update_time: 1752838728648
+lifecycle_stage: active
+name: energy-forecast-xgboost

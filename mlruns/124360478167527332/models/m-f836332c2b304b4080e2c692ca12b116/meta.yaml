@@ -1,0 +1,10 @@
+artifact_location: file:///E:/renewable-energy-optimization-ai/mlruns/124360478167527332/models/m-f836332c2b304b4080e2c692ca12b116/artifacts
+creation_timestamp: 1752838729740
+experiment_id: '124360478167527332'
+last_updated_timestamp: 1752838736737
+model_id: m-f836332c2b304b4080e2c692ca12b116
+model_type: null
+name: model
+source_run_id: 7ca7df6afc124ecb8d3f16aad7ef6a7f
+status: 2
+status_message: null
