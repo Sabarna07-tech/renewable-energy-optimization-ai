@@ -161,14 +161,21 @@ An end-to-end machine learning pipeline for forecasting, anomaly detection, and 
 
 3. **Simulate IoT → Kafka**
 
-   * Start Kafka & Zookeeper (via Docker Compose or your install).
-   * In one terminal, run:
+   * Start Kafka & Zookeeper:
+
+     ```bash
+     docker compose up -d zookeeper kafka  # or `docker-compose`
+     ```
+
+   * In another terminal, run:
 
      ```bash
      cd iot_simulator
      pip install -r requirements.txt
      python producer.py
      ```
+
+   * If `NoBrokersAvailable` appears, confirm Kafka is running and reachable at `localhost:9092`.
    * This will produce JSON messages to Kafka topics.
 
 4. **Run Kafka Consumer → CSV**
