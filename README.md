@@ -136,7 +136,7 @@ An end-to-end machine learning pipeline for forecasting, anomaly detection, and 
 ## 🖥 Prerequisites
 
 * Docker & Docker Compose
-* Python 3.8+
+* Python 3.8–3.11
 * Kafka & Zookeeper (if running outside Docker)
 * (Optional) Grafana & Postgres for dashboards
 
@@ -180,15 +180,16 @@ An end-to-end machine learning pipeline for forecasting, anomaly detection, and 
    * Topic `energy-data` will be created automatically and populated with JSON messages.
 
 
-
 4. **Run Kafka Consumer → CSV**
 
    ```bash
    cd kafka_consumer
+   pip install -r requirements.txt
    uvicorn main:app --reload --port 8001
    ```
 
    Incoming messages will be appended to `data/energy_data.csv`.
+   *Note*: this service requires `email-validator>=2`, which conflicts with Airflow's dependencies. Run it in a separate virtual environment from Airflow.
 
 ---
 
