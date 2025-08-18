@@ -272,12 +272,18 @@ We use **Docker Compose** with Postgres for stable metadata storage.
 
 ## 📈 Monitoring & Dashboards
 
-* **Grafana** (Dockerfile in `docker/grafana.Dockerfile`)
-* Connect Grafana to:
+Prometheus and Grafana are part of the default Docker stack.
 
-  * **InfluxDB** (for streaming metrics)
-  * **MLflow's metrics store** (via Prometheus exporter)
-* Pre-built dashboard JSONs in `dashboards/`
+1. Start the monitoring services:
+
+   ```bash
+   docker compose up -d prometheus grafana
+   ```
+
+2. Visit **http://localhost:3001** and log in with `admin` / `admin`.
+
+Grafana is pre-provisioned with a Prometheus data source and a sample
+"System Overview" dashboard located in `monitoring/grafana/dashboards/`.
 
 ---
 
