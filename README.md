@@ -176,7 +176,11 @@ An end-to-end machine learning pipeline for forecasting, anomaly detection, and 
      ```
 
    * If `NoBrokersAvailable` appears, confirm Kafka is running and reachable at `localhost:9092`.
+
+   * Topic `energy-data` will be created automatically and populated with JSON messages.
+
    * This will produce JSON messages to Kafka topics.
+
 
 4. **Run Kafka Consumer → CSV**
 

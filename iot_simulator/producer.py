@@ -1,7 +1,7 @@
 import json
 import time
 import random
-from datetime import datetime
+from datetime import datetime, timezone
 from kafka import KafkaProducer
 
 producer = KafkaProducer(
@@ -11,7 +11,7 @@ producer = KafkaProducer(
 
 def generate_fake_sensor_data():
     return {
-        "timestamp": datetime.utcnow().isoformat(),
+        "timestamp": datetime.now(timezone.utc).isoformat(),
         "power_kw": round(random.uniform(20, 100), 2),
         "temperature": round(random.uniform(20, 45), 2),
         "wind_speed": round(random.uniform(0, 15), 2),
