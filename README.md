@@ -161,15 +161,22 @@ An end-to-end machine learning pipeline for forecasting, anomaly detection, and 
 
 3. **Simulate IoT → Kafka**
 
-   * Start Kafka & Zookeeper (via Docker Compose or your install).
-   * In one terminal, run:
+   * Start Kafka & Zookeeper:
+
+     ```bash
+     docker compose up -d zookeeper kafka  # or `docker-compose`
+     ```
+
+   * In another terminal, run:
 
      ```bash
      cd iot_simulator
      pip install -r requirements.txt
      python producer.py
      ```
-   * This will produce JSON messages to Kafka topics.
+
+   * If `NoBrokersAvailable` appears, confirm Kafka is running and reachable at `localhost:9092`.
+   * Topic `energy-data` will be created automatically and populated with JSON messages.
 
 4. **Run Kafka Consumer → CSV**
 
@@ -272,12 +279,18 @@ We use **Docker Compose** with Postgres for stable metadata storage.
 
 ## 📈 Monitoring & Dashboards
 
-* **Grafana** (Dockerfile in `docker/grafana.Dockerfile`)
-* Connect Grafana to:
+Prometheus and Grafana are part of the default Docker stack.
 
-  * **InfluxDB** (for streaming metrics)
-  * **MLflow's metrics store** (via Prometheus exporter)
-* Pre-built dashboard JSONs in `dashboards/`
+1. Start the monitoring services:
+
+   ```bash
+   docker compose up -d prometheus grafana
+   ```
+
+2. Visit **http://localhost:3001** and log in with `admin` / `admin`.
+
+Grafana is pre-provisioned with a Prometheus data source and a sample
+"System Overview" dashboard located in `monitoring/grafana/dashboards/`.
 
 ---
 
