@@ -44,7 +44,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      # 🏷️ Build & push with a LOWERCASE tag
+# .github/workflows/ci.yml
       - name: Build & push (main only)
         if: github.ref == 'refs/heads/main'
         uses: docker/build-push-action@v6
@@ -52,6 +52,5 @@ jobs:
           context: .
           file: docker/fastapi.Dockerfile
           push: true
-          # Use owner + simple image name; force lowercase
-          tags: ghcr.io/${{ toLower(github.repository_owner) }}/energy-backend:latest
+          tags: ghcr.io/sabarna07-tech/energy-backend:latest   # <- lowercase owner
           provenance: false
