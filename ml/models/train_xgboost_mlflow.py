@@ -12,9 +12,7 @@ from ml.utils import feature_engineering, load_data
 
 
 def parse_args():
-    parser = argparse.ArgumentParser(
-        description="Train XGBoost model with MLflow tracking"
-    )
+    parser = argparse.ArgumentParser(description="Train XGBoost model with MLflow tracking")
     parser.add_argument(
         "--data-path",
         type=str,
@@ -56,9 +54,7 @@ def main():
         X = df.drop("target", axis=1)
         y = df["target"]
 
-        X_train, X_test, y_train, y_test = train_test_split(
-            X, y, test_size=0.2, random_state=42
-        )
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
         # Hyperparameter grid
         param_grid = {
