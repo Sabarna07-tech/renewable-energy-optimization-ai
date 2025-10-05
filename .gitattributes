@@ -1,0 +1,22 @@
+* text=auto
+
+# Always LF for source & config
+*.py      text eol=lf
+*.yml     text eol=lf
+*.yaml    text eol=lf
+*.toml    text eol=lf
+*.ini     text eol=lf
+*.json    text eol=lf
+*.md      text eol=lf
+*.sh      text eol=lf
+Dockerfile text eol=lf
+*.Dockerfile text eol=lf
+
+# Binary / generated
+*.pkl     binary
+*.bin     binary
+*.gz      binary
+*.zip     binary
+*.ipynb   -text
+mlruns/** -text
+airflow_logs/** -text
