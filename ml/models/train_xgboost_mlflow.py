@@ -1,16 +1,14 @@
-import os
 import argparse
+import os
 
-
+import joblib
 import mlflow
 import mlflow.xgboost
-
-from sklearn.model_selection import train_test_split, GridSearchCV
-from sklearn.metrics import mean_squared_error
 import xgboost as xgb
-import joblib
+from sklearn.metrics import mean_squared_error
+from sklearn.model_selection import GridSearchCV, train_test_split
 
-from ml.utils import load_data, feature_engineering
+from ml.utils import feature_engineering, load_data
 
 
 def parse_args():
