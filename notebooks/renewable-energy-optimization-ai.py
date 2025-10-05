@@ -87,14 +87,8 @@ plt.show()
 get_ipython().system("pip install prophet --quiet")
 from prophet import Prophet
 
-prophet_df = (
-    df_clean[["DATETIME", "POWER (KW)"]]
-    .rename(columns={"DATETIME": "ds", "POWER (KW)": "y"})
-    .dropna()
-)
-model = Prophet(
-    yearly_seasonality=True, weekly_seasonality=True, daily_seasonality=True
-)
+prophet_df = df_clean[["DATETIME", "POWER (KW)"]].rename(columns={"DATETIME": "ds", "POWER (KW)": "y"}).dropna()
+model = Prophet(yearly_seasonality=True, weekly_seasonality=True, daily_seasonality=True)
 model.fit(prophet_df)
 future = model.make_future_dataframe(periods=30, freq="D")  # Forecast next 30 days
 forecast = model.predict(future)
@@ -134,16 +128,10 @@ plt.show()
 
 
 # Prepare your dataframe for Prophet
-prophet_df = (
-    df_clean[["DATETIME", "POWER (KW)"]]
-    .rename(columns={"DATETIME": "ds", "POWER (KW)": "y"})
-    .dropna()
-)
+prophet_df = df_clean[["DATETIME", "POWER (KW)"]].rename(columns={"DATETIME": "ds", "POWER (KW)": "y"}).dropna()
 
 # Initialize and train the model (this is the training step!)
-model = Prophet(
-    yearly_seasonality=True, weekly_seasonality=True, daily_seasonality=True
-)
+model = Prophet(yearly_seasonality=True, weekly_seasonality=True, daily_seasonality=True)
 model.fit(prophet_df)
 
 
@@ -341,9 +329,7 @@ import pickle
 import os
 
 os.makedirs(r"E:\renewable-energy-optimization-ai\ml\models", exist_ok=True)
-with open(
-    r"E:\renewable-energy-optimization-ai\ml\models\xgboost_model.pkl", "wb"
-) as f:
+with open(r"E:\renewable-energy-optimization-ai\ml\models\xgboost_model.pkl", "wb") as f:
     pickle.dump(model_xgb, f)
 
 
@@ -416,9 +402,7 @@ print(f"R² Score (best): {r2_best:.3f} ({r2_best*100:.1f}%)")
 
 import pickle
 
-with open(
-    r"E:\renewable-energy-optimization-ai\ml\models\xgboost_best_model.pkl", "wb"
-) as f:
+with open(r"E:\renewable-energy-optimization-ai\ml\models\xgboost_best_model.pkl", "wb") as f:
     pickle.dump(best_model, f)
 print("Tuned model saved as xgboost_best_model.pkl")
 
