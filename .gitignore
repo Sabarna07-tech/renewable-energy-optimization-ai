@@ -217,3 +217,5 @@ mlruns/
 *.pkl
 .DS_Store
 .idea/
+mlruns/
+airflow_logs/
