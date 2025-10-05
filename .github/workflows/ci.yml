@@ -10,26 +10,41 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      packages: write
+      packages: write   # needed to push to GHCR
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
+          python-version: '3.11'
+
       - name: Install deps
         run: |
           python -m venv .venv
           . .venv/bin/activate
           pip install -r serving/requirements.txt pytest ruff black
+
       - name: Lint
         run: |
           . .venv/bin/activate
           ruff check .
           black --check .
+
       - name: Test
         run: |
           . .venv/bin/activate
           pytest -q
+
+      # 🔐 Login to GHCR with GITHUB_TOKEN
+      - name: Login to GHCR
+        if: github.ref == 'refs/heads/main'
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      # 🏷️ Build & push with a LOWERCASE tag
       - name: Build & push (main only)
         if: github.ref == 'refs/heads/main'
         uses: docker/build-push-action@v6
@@ -37,5 +52,6 @@ jobs:
           context: .
           file: docker/fastapi.Dockerfile
           push: true
-          tags: ghcr.io/${{ github.repository }}/energy-backend:latest
+          # Use owner + simple image name; force lowercase
+          tags: ghcr.io/${{ toLower(github.repository_owner) }}/energy-backend:latest
           provenance: false
