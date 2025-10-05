@@ -1,0 +1,23 @@
+repos:
+  - repo: https://github.com/psf/black
+    rev: 25.9.0
+    hooks:
+      - id: black
+        files: ^(serving|pipelines|kafka_consumer|iot_simulator|tests)/.*\.py$
+        exclude: ^(mlruns/|notebooks/|data/|.*\.ipynb$)
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.13.3
+    hooks:
+      - id: ruff
+        args: [--fix]
+        files: ^(serving|pipelines|kafka_consumer|iot_simulator|tests)/.*\.py$
+        exclude: ^(mlruns/|notebooks/|data/|.*\.ipynb$)
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: end-of-file-fixer
+        exclude: ^mlruns/
+      - id: trailing-whitespace
+        exclude: ^mlruns/

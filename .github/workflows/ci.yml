@@ -1,0 +1,41 @@
+name: CI
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test-and-build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install deps
+        run: |
+          python -m venv .venv
+          . .venv/bin/activate
+          pip install -r serving/requirements.txt pytest ruff black
+      - name: Lint
+        run: |
+          . .venv/bin/activate
+          ruff check .
+          black --check .
+      - name: Test
+        run: |
+          . .venv/bin/activate
+          pytest -q
+      - name: Build & push (main only)
+        if: github.ref == 'refs/heads/main'
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: docker/fastapi.Dockerfile
+          push: true
+          tags: ghcr.io/${{ github.repository }}/energy-backend:latest
+          provenance: false

@@ -1,6 +1,6 @@
 import os
 import argparse
-import pandas as pd
+
 
 import mlflow
 import mlflow.xgboost
@@ -12,17 +12,35 @@ import joblib
 
 from ml.utils import load_data, feature_engineering
 
+
 def parse_args():
-    parser = argparse.ArgumentParser(description="Train XGBoost model with MLflow tracking")
-    parser.add_argument("--data-path", type=str, default="data/processed/energy_features.csv",
-                        help="Path to processed feature CSV")
-    parser.add_argument("--output-model-path", type=str, default="ml/models/xgboost_model.pkl",
-                        help="Path to save the trained model artifact")
-    parser.add_argument("--mlflow-tracking-uri", type=str,
-                        default=os.getenv("MLFLOW_TRACKING_URI", "http://mlflow:5000"),
-                        help="MLflow tracking server URI")
-    parser.add_argument("--experiment-name", type=str, default="energy_forecast",
-                        help="MLflow experiment name")
+    parser = argparse.ArgumentParser(
+        description="Train XGBoost model with MLflow tracking"
+    )
+    parser.add_argument(
+        "--data-path",
+        type=str,
+        default="data/processed/energy_features.csv",
+        help="Path to processed feature CSV",
+    )
+    parser.add_argument(
+        "--output-model-path",
+        type=str,
+        default="ml/models/xgboost_model.pkl",
+        help="Path to save the trained model artifact",
+    )
+    parser.add_argument(
+        "--mlflow-tracking-uri",
+        type=str,
+        default=os.getenv("MLFLOW_TRACKING_URI", "http://mlflow:5000"),
+        help="MLflow tracking server URI",
+    )
+    parser.add_argument(
+        "--experiment-name",
+        type=str,
+        default="energy_forecast",
+        help="MLflow experiment name",
+    )
     return parser.parse_args()
 
 
@@ -49,7 +67,7 @@ def main():
             "n_estimators": [100, 200],
             "max_depth": [3, 6],
             "learning_rate": [0.01, 0.1],
-            "subsample": [0.8, 1.0]
+            "subsample": [0.8, 1.0],
         }
 
         model = xgb.XGBRegressor(objective="reg:squarederror", random_state=42)
@@ -58,7 +76,7 @@ def main():
             param_grid=param_grid,
             cv=3,
             scoring="neg_mean_squared_error",
-            n_jobs=-1
+            n_jobs=-1,
         )
         grid_search.fit(X_train, y_train)
 
@@ -69,7 +87,7 @@ def main():
         # Evaluate on test set
         preds = grid_search.predict(X_test)
         mse = mean_squared_error(y_test, preds)
-        rmse = mse ** 0.5
+        rmse = mse**0.5
         mlflow.log_metric("rmse", rmse)
 
         # Log model to MLflow
@@ -78,6 +96,7 @@ def main():
         # Save model artifact locally
         joblib.dump(grid_search.best_estimator_, args.output_model_path)
         mlflow.log_artifact(args.output_model_path)
+
 
 if __name__ == "__main__":
     main()
