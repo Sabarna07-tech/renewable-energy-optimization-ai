@@ -1,7 +1,7 @@
+from fastapi import FastAPI, HTTPException
 import joblib
 import numpy as np
 import pandas as pd
-from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, Field
 
 app = FastAPI(title="Renewable Energy Optimization AI", version="1.0.0")

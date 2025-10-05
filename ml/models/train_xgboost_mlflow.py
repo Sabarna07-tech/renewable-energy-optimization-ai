@@ -4,9 +4,9 @@ import os
 import joblib
 import mlflow
 import mlflow.xgboost
-import xgboost as xgb
 from sklearn.metrics import mean_squared_error
 from sklearn.model_selection import GridSearchCV, train_test_split
+import xgboost as xgb
 
 from ml.utils import feature_engineering, load_data
 

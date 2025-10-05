@@ -1,5 +1,5 @@
-import pytest
 from pydantic import ValidationError
+import pytest
 
 from serving.app import FEATURE_ORDER, MODEL_FEATURE_ORDER, Features
 
