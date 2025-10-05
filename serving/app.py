@@ -4,7 +4,15 @@ import numpy as np
 import pandas as pd
 from pydantic import BaseModel, Field
 
-app = FastAPI(title="Renewable Energy Optimization AI", version="1.0.0")
+app = FastAPI(
+    title="Energy Load Forecasting API",
+    version="1.0.0",
+    description=(
+        "Predict near-term electric load (kW) from electrical measurements (Voltage, Current, Power Factor) "
+        "and contextual features (Temp, Humidity, weekday/weekend, season, lags/rolling stats). Intended for "
+        "demand planning, scheduling, and analytics. Note: this predicts demand/load, not renewable generation."
+    ),
+)
 
 FEATURE_ORDER = [
     "VOLTAGE",

@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
+# NOTE: This analysis supports load/demand forecasting; older labels referenced renewables but the model here predicts electric demand (kW).
 
 # In[2]:
 

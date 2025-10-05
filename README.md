@@ -1,16 +1,22 @@
-# Renewable Energy Optimization AI
+# Energy Load Forecasting (Power Demand)
 
-A production-ready reference implementation for forecasting renewable energy outputs using an XGBoost regression model. The project combines streaming ingestion, scheduled retraining, and observability components so that data teams can deploy, monitor, and extend power predictions quickly.
+A production-ready reference implementation for predicting near-term electric load (kW) using an XGBoost regression model. The project combines streaming ingestion, scheduled retraining, and observability components so demand-planning teams can deploy, monitor, and extend power forecasts quickly.
 
 ## What it predicts & inputs
-- **Prediction**: real-time estimate of generated power in kilowatts.
+- **Prediction**: near-term electric load / demand in kilowatts exposed as `predicted_power_kw`.
 - **Required inputs** (JSON fields and order enforced internally): `VOLTAGE`, `CURRENT`, `PF`, `Temp_F`, `Humidity`, `WEEKEND_WEEKDAY`, `SEASON`, `lag1`, `rolling_mean_3`.
+- **Signals explained**:
+  - `VOLTAGE`, `CURRENT`, `PF`: electrical measurements reflecting instantaneous load.
+  - `Temp_F`, `Humidity`: weather context influencing HVAC and equipment usage.
+  - `WEEKEND_WEEKDAY`, `SEASON`: categorical demand patterns.
+  - `lag1`, `rolling_mean_3`: recent load history for temporal continuity.
 - **Model**: gradient boosted trees stored at `ml/models/xgboost_model.pkl`.
 
 ## Target audience
-- Energy operations teams needing a lightweight forecasting API for on-prem or edge deployments.
-- Data scientists prototyping energy models with simulated IoT streams before scaling to full production stacks.
-- Platform engineers evaluating an end-to-end MLOps reference that still fits in a single repository.
+- Utilities and grid operators forecasting facility or feeder load.
+- Microgrid and campus energy managers planning demand response programs.
+- Facility operations and scheduling teams balancing asset usage.
+- Energy analytics and MLOps engineers packaging load forecasters for production.
 
 ## Quickstart
 ```bash
@@ -27,6 +33,8 @@ Bring the stack down with:
 docker compose -f docker-compose.min.yml down
 ```
 
+> **Note:** Out of scope for this release: solar/wind production forecasting. This project targets demand/load. A future module can combine on-site renewables to produce net-load estimates.
+
 ## API endpoints
 - `GET /health` -> `{"status": "ok"}` for readiness probes.
 - `POST /predict` -> returns `{ "predicted_power_kw": <float> }`.
@@ -39,11 +47,11 @@ Example response:
 ```
 
 ## Project structure highlights
-- `serving/app.py` — FastAPI app loading the XGBoost model and exposing REST endpoints.
-- `pipelines/dags/ml_pipeline.py` — Airflow DAG orchestrating retraining (optional).
-- `iot_simulator/producer.py` — Kafka simulator for synthetic telemetry.
-- `monitoring/` — Prometheus and Grafana configuration for metrics and dashboards.
-- `docker-compose.min.yml` — minimal serving stack with the API container only.
+- `serving/app.py` - FastAPI app loading the XGBoost model and exposing REST endpoints.
+- `pipelines/dags/ml_pipeline.py` - Airflow DAG orchestrating retraining (optional).
+- `iot_simulator/producer.py` - Kafka simulator for synthetic telemetry.
+- `monitoring/` - Prometheus and Grafana configuration for metrics and dashboards.
+- `docker-compose.min.yml` - minimal serving stack with the API container only.
 
 A future `docker-compose.full.yml` will orchestrate Kafka, MLflow, Airflow, Prometheus, and Grafana for full-stack demos.
 

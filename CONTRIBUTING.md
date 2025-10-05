@@ -1,6 +1,6 @@
 # Contributing
 
-Thanks for your interest in improving Renewable Energy Optimization AI! We welcome pull requests and issue reports that help harden the serving stack and surrounding tooling.
+Thanks for your interest in improving Energy Load Forecasting! We welcome pull requests and issue reports that help harden the serving stack and surrounding tooling.
 
 ## Prerequisites
 

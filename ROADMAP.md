@@ -10,3 +10,4 @@
 - Publish public dataset samples and benchmarking notebooks.
 - Add alerting hooks for anomaly detections and forecast drift.
 - Explore hardware acceleration paths for on-prem deployments.
+- Optional module: net load forecasting (demand – renewables).

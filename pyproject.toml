@@ -1,5 +1,5 @@
 [tool.ruff]
-line-length = 100
+line-length = 120
 extend-exclude = ["mlruns", "notebooks", "data", "airflow_logs", "airflow/logs"]
 
 [tool.ruff.lint]
@@ -9,3 +9,9 @@ ignore = ["E203"]
 [tool.ruff.lint.isort]
 known-first-party = ["ml", "serving", "pipelines", "kafka_consumer", "iot_simulator", "tests"]
 force-sort-within-sections = true
+
+[tool.ruff.lint.per-file-ignores]
+"pipelines/dags/ml_pipeline.py" = ["I001"]
+
+[tool.black]
+line-length = 120

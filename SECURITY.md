@@ -4,7 +4,7 @@
 
 We take security issues seriously. If you discover a vulnerability, please report it privately so we can address it quickly.
 
-- Email: security@renewable-energy-optimization-ai.org
+- Email: security@energy-load-forecasting.org
 - Alternatively, open a private advisory via the GitHub Security tab.
 
 Please include the following information:
